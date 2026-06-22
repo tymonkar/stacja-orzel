@@ -202,11 +202,12 @@ body{font-size:16px;line-height:1.45}
 .packages-page .package-route{margin:16px 5px}
 
 .rewards-page .loyalty-card{padding:16px;flex-shrink:0}
+.rewards-page{width:100%;margin:0 auto}
 .rewards-page .loyalty-card h1{font-size:28px;margin:0}
 .rewards-page .loyalty-card>p{margin:14px 0 2px}
 .rewards-page .progress{margin:12px 0 6px}
-.rewards-page .reward-grid{flex-shrink:0}
-.rewards-page .reward-grid article{padding:8px}
+.rewards-page .reward-grid{flex-shrink:0;min-width:0}
+.rewards-page .reward-grid article{padding:8px;min-width:0}
 .rewards-page .reward-grid article>div{font-size:28px;padding:8px}
 .rewards-page .reward-grid h3{min-height:unset}
 .rewards-page .points-history{flex:1;min-height:0;overflow-y:auto;margin-top:10px}

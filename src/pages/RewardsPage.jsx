@@ -1,0 +1,8 @@
+import { Coffee, Fuel, QrCode, Star } from 'lucide-react'
+import Header from '../components/layout/Header'
+import { rewards } from '../data'
+
+export default function RewardsPage({ points, setPoints, notify, transactions }) {
+    const redeem = reward => { if (points < reward.points) return notify('Masz za mało punktów'); setPoints(p => p - reward.points); notify(`Kupon na „${reward.name}” jest gotowy`) }
+    return <><Header points={points} /><main className="page rewards-page"><section className="loyalty-card"><div className="loyalty-top"><span className="brand-mark light">O</span><span>ORZEŁ KLUB</span><QrCode /></div><p>Twoje punkty</p><h1>{points.toLocaleString('pl-PL')}</h1><div className="progress"><i style={{ width: `${Math.min(points / 50, 100)}%` }} /></div><small>Jeszcze {Math.max(5000 - points, 0)} pkt do poziomu Złotego</small></section><div className="section-head"><div><p className="eyebrow">Katalog</p><h2>Wymień punkty</h2></div><button>Historia</button></div><div className="reward-grid">{rewards.map(r => <article key={r.id}><div>{r.icon}</div><h3>{r.name}</h3><strong><Star fill="currentColor" /> {r.points} pkt</strong><button disabled={points < r.points} onClick={() => redeem(r)}>Odbierz</button></article>)}</div><section className="card points-history"><h2>Ostatnia aktywność</h2>{transactions[0] && <div><span className="history-icon"><Fuel /></span><span><strong>Tankowanie · {transactions[0].fuel}</strong><small>Dzisiaj · {transactions[0].station.name}</small></span><b>+{transactions[0].points} pkt</b></div>}<div><span className="history-icon"><Coffee /></span><span><strong>Stop Cafe</strong><small>18 czerwca, 14:21</small></span><b>+42 pkt</b></div></section></main></>
+}

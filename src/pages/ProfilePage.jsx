@@ -1,0 +1,9 @@
+import { Bell, ChevronRight, Fuel, Heart, ShoppingBag, Star, Wallet } from 'lucide-react'
+import Header from '../components/layout/Header'
+import { formatDecimal, money } from '../utils/format'
+
+export default function ProfilePage({ points, notify, transactions }) {
+    const recent = transactions[0]
+    const liters = 184 + transactions.reduce((sum, item) => sum + item.liters, 0)
+    return <><Header points={points} /><main className="page profile-page"><section className="profile-head"><div className="big-avatar">AN</div><h1>Anna Nowak</h1><p>anna.nowak@example.com</p><span><Star fill="currentColor" /> Członek Orzeł Klubu</span></section><section className="stats"><div><strong>{points}</strong><span>Punkty</span></div><div><strong>{12 + transactions.length}</strong><span>Transakcje</span></div><div><strong>{formatDecimal(liters, 1)} l</strong><span>Zatankowano</span></div></section><section className="card menu-list"><h2>Twoje konto</h2>{[[Wallet, 'Metody płatności', 'Karta •••• 4821'], [ShoppingBag, 'Historia zakupów', 'E-paragony i faktury'], [Heart, 'Ulubione', '3 produkty'], [Bell, 'Powiadomienia', 'Włączone']].map(([Icon, title, sub]) => <button key={title} onClick={() => notify(`${title}: funkcja demonstracyjna`)}><span><Icon /></span><div><strong>{title}</strong><small>{sub}</small></div><ChevronRight /></button>)}</section><section className="card recent-order"><div className="section-head compact"><h2>Ostatni zakup</h2><button>Wszystkie</button></div><div><span className="history-icon"><Fuel /></span><span><strong>{recent?.station.name || 'Orzeł Modlińska'}</strong><small>{recent ? `${recent.fuel} · ${formatDecimal(recent.liters)} l · dzisiaj` : 'PB 95 · 32,8 l · 18 czerwca'}</small></span><b>{recent ? money(recent.amount) : '199,42 zł'}</b></div><button className="receipt" onClick={() => notify(recent ? `E-paragon ${recent.id} jest gotowy` : 'E-paragon został przygotowany')}>Pobierz e-paragon</button></section></main></>
+}
